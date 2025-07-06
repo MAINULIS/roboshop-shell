@@ -11,26 +11,31 @@ APP_PREREQ(){
 
 SYSTEMD(){
    systemctl daemon-reload
-    systemctl enable ${component}
-    systemctl start ${component}
+   systemctl enable ${component}
+   systemctl start ${component}
 }
 
 NODEJS(){
   dnf module disable nodejs -y
   dnf module enable nodejs:20 -y
   dnf install nodejs -y
-
   APP_PREREQ
-
   npm install
   SYSTEMD
 }
 
 PYTHON(){
   dnf install python3 gcc python3-devel -y
-
   APP_PREREQ
-
   pip3 install -r requirements.txt
  SYSTEMD
+}
+
+MAVEN(){
+  dnf install maven -y
+  APP_PREREQ
+  mvn clean package
+  mv target/${component}-1.0.jar ${component}.jar
+
+  SYSTEMD
 }
