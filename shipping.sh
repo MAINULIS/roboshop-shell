@@ -1,6 +1,6 @@
 dnf install maven -y
 
-cp shipping.repo /etc/systemd/system/shipping.service
+cp shipping.service /etc/systemd/system/shipping.service
 
 useradd roboshop
 mkdir /app
@@ -12,9 +12,9 @@ mvn clean package
 mv target/shipping-1.0.jar shipping.jar
 
 dnf install mysql -y
-mysql -h MYSQL-SERVER-IPADDRESS -uroot -pRoboShop@1 < /app/db/schema.sql
-mysql -h MYSQL-SERVER-IPADDRESS -uroot -pRoboShop@1 < /app/db/app-user.sql
-mysql -h MYSQL-SERVER-IPADDRESS -uroot -pRoboShop@1 < /app/db/master-data.sql
+mysql -h mysql-dev.maidevops.fun -uroot -pRoboShop@1 < /app/db/schema.sql
+mysql -h mysql-dev.maidevops.fun -uroot -pRoboShop@1 < /app/db/app-user.sql
+mysql -h mysql-dev.maidevops.fun -uroot -pRoboShop@1 < /app/db/master-data.sql
 
 systemctl daemon-reload
 systemctl enable shipping
