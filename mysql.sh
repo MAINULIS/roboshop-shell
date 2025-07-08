@@ -1,6 +1,6 @@
 if [[ -z "$1" ]]; then
  echo "Provide a valid password!"
- exit
+ exit 1
 fi
 dnf install mysql-server -y
 systemctl enable mysqld
